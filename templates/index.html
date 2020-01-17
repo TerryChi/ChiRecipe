@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{#{% load web_filters %}#}
+
+{% block content %}
+    <!-- 表格的部分 -->
+    <div class="table-responsive">
+        <table>
+            <table class="table table-hover">
+            {% for cook in cookbooks %}
+                <tr style="cursor: pointer" onclick="window.location.href='{% url 'cookbook_detail' pro.id %}'">
+                    <td>{{ cook.name }}</td>
+{#                    {% if cook.image != "" %}#}
+{#                        <td>{{ cook.image }}</td>#}
+{#                    {% endif %}#}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        </table>
+    </div>
+{% endblock %}

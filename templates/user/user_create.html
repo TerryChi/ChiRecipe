@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div>
+        <form method="post">
+            {% csrf_token %}
+
+            Name：<input type="text" name="name" placeholder="NAME" required><br>
+            ID：<input type="text" name="reg_id" placeholder="ID" required><br>
+            Password：<input type="password" name="password" placeholder="PASSWORD" required><br>
+            Password check：<input type="password" name="password_check" placeholder="PASSWORD CHECK" required><br>
+
+            <input type="submit" onclick="return confirm('確認註冊?')" value="註冊使用者">
+        </form>
+    </div>
+{% endblock %}

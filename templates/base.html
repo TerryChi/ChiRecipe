@@ -1,0 +1,86 @@
+{% load staticfiles %}
+{#{% load web_filters %}#}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>霹靂鳥食物網</title>
+
+    {% block stylesheets %}
+    {% endblock %}
+
+    {% block scripts %}
+    {% endblock %}
+</head>
+<body>
+    <div class="wrapper">
+        <!--上方功能列-->
+        <div class="toolbar" style="opacity: 0.8;">
+            <nav class="navbar navbar-light bg-green" role="navigation">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+    {#                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">#}
+    {#                        <span class="icon-bar"></span>#}
+    {#                        <span class="icon-bar"></span>#}
+    {#                        <span class="icon-bar"></span>#}
+    {#                    </button>#}
+                        <a class="navbar-brand" href="{% url "homepage" %}" style=" opacity: 1; font-size: 30px;">霹靂鳥食物網</a>
+                    </div>
+                </div>
+            </nav>
+            <!-- 右上腳按鈕 -->
+            <div class="container-fluid">
+                <!-- BS4 的靠右由 pull-right 改為 float-right -->
+                <div class="btn-group float-right">
+    {#                <button type="button" class="btn btn-primary dropdown-toggle pull-right" data-toggle="dropdown">#}
+    {#                    <i class="fa fa-reorder"></i>#}
+    {#                </button>#}
+                    <!-- 重點在這 -->
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <div class="registration_block">
+                            {% if user.is_authenticated %}
+{#                                <h1>Welcome, {{ user.name }}(<a href="{% url 'profile' %}">{{ user.reg_id }}</a>) </h1>#}
+                                <h1>Welcome, {{ user.name }}</h1>
+                                <h2><a title="即將登出" href="{% url 'logout' %}" onclick="return confirm('確認登出？')">Logout</a></h2>
+                            {% else %}
+                                <p><a title="我要登入" href="{% url 'login' %}">Login</a></p>
+                            {% endif %}
+                            <a title="註冊" href="{% url 'register' %}">Registration</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="infor">
+            <section>
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if message.tags == "error" %}
+                            <div class="alert alert-danger mt-3" role="alert">
+                                <i class="fa fa-window-close" aria-hidden="true"></i> {{ message }}
+                            </div>
+            {#                <script language="javascript">alert("{{ message }}")</script>#}
+
+                        {% elif message.tags == "success" %}
+                            <div class="alert alert-success mt-3" role="alert">
+                                {{ message }}
+                            </div>
+            {#                <script language="javascript">alert("{{ message }}")</script>#}
+
+                        {% elif message.tags == "warning" %}
+                            <div class="alert alert-warning mt-3" role="alert">
+                                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{ message }}
+                            </div>
+            {#                <script language="javascript">alert("{{ message }}")</script>#}
+
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                {% block content %}
+
+                {% endblock %}
+            </section>
+        </div>
+    </div>
+</body>
